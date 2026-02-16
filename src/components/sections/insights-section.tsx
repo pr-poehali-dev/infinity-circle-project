@@ -1,100 +1,65 @@
-import type React from "react"
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { ArrowRight } from "lucide-react"
+import { motion } from "framer-motion"
+import Icon from "@/components/ui/icon"
 
-const articles = [
+const wishes = [
   {
-    title: "Искусство визуального сторителлинга",
-    category: "Дизайн",
-    image: "/visual-storytelling-design-article.jpg",
+    icon: "HeartOff",
+    title: "Без «горько»",
+    description: "Пожалуйста, воздержитесь от традиционного «горько» — нам хочется, чтобы атмосфера была лёгкой и романтичной.",
   },
   {
-    title: "Как создать личный бренд онлайн",
-    category: "Стратегия",
-    image: "/personal-branding-digital-marketing.jpg",
+    icon: "Palette",
+    title: "Пастельные тона",
+    description: "Будем благодарны, если вы выберете для праздника одежду в пастельных тонах — это поможет создать утончённый и гармоничный образ торжества.",
   },
   {
-    title: "Тренды типографики 2025",
-    category: "Типографика",
-    image: "/typography-trends-modern-fonts.jpg",
-  },
-  {
-    title: "Минимализм в дизайне портфолио",
-    category: "Вдохновение",
-    image: "/placeholder.svg?height=200&width=300",
+    icon: "Smile",
+    title: "Хорошее настроение",
+    description: "Самый лучший подарок — ваши искренние улыбки и тёплые пожелания в этот особенный день.",
   },
 ]
 
 export function InsightsSection() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    setMousePosition({ x: e.clientX, y: e.clientY })
-  }
-
   return (
-    <section className="bg-background px-6 py-24" onMouseMove={handleMouseMove}>
+    <section className="bg-background px-6 py-24">
       <div className="max-w-4xl mx-auto">
         <motion.p
-          className="text-muted-foreground text-sm uppercase tracking-widest mb-8"
+          className="text-muted-foreground text-sm uppercase tracking-[0.3em] mb-4 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          Статьи
+          Наши пожелания
         </motion.p>
 
-        <div className="divide-y divide-border">
-          {articles.map((article, i) => (
-            <motion.a
+        <motion.h2
+          className="text-3xl md:text-5xl font-serif text-foreground text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+        >
+          Пара тёплых просьб
+        </motion.h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {wishes.map((wish, i) => (
+            <motion.div
               key={i}
-              href="#"
-              className="group flex items-center justify-between py-6 relative"
-              initial={{ opacity: 0, y: 20 }}
+              className="text-center p-8 rounded-xl bg-secondary/50"
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              onMouseEnter={() => setHoveredIndex(i)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              whileHover={{ paddingLeft: 16, paddingRight: 16 }}
-              data-clickable
+              transition={{ delay: i * 0.15, duration: 0.6 }}
             >
-              <div className="flex-1">
-                <span className="text-xs text-muted-foreground uppercase tracking-wider">{article.category}</span>
-                <h3 className="font-serif text-xl md:text-2xl text-foreground mt-1 group-hover:text-primary transition-colors">
-                  {article.title}
-                </h3>
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                <Icon name={wish.icon} size={28} className="text-primary" />
               </div>
-              <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
-            </motion.a>
+              <h3 className="font-serif text-xl text-foreground mb-3">{wish.title}</h3>
+              <p className="text-muted-foreground leading-relaxed">{wish.description}</p>
+            </motion.div>
           ))}
         </div>
-
-        {/* Floating hover image */}
-        <AnimatePresence>
-          {hoveredIndex !== null && (
-            <motion.div
-              className="fixed pointer-events-none z-50 w-[200px] md:w-[300px] rounded-lg overflow-hidden shadow-2xl hidden md:block"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                x: mousePosition.x + 20,
-                y: mousePosition.y - 100,
-              }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.2 }}
-            >
-              <img
-                src={articles[hoveredIndex].image || "/placeholder.svg"}
-                alt={articles[hoveredIndex].title}
-                className="w-full h-auto"
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
     </section>
   )

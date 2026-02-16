@@ -15,21 +15,16 @@ export function ManifestoSection() {
       ref={containerRef}
       className="relative min-h-[80vh] flex items-center justify-center bg-background px-6 py-32"
     >
-      <div className="max-w-5xl mx-auto relative">
-        <h2 className="text-4xl md:text-6xl lg:text-7xl font-serif leading-tight text-center text-foreground/10">
-          Хватит делать сайты.
-          <br />
-          Пора рассказывать истории.
+      <div className="max-w-4xl mx-auto relative">
+        <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif leading-relaxed text-center text-foreground/10">
+          Дорогие наши друзья и родные! Мы с радостью приглашаем вас разделить с нами самый счастливый день.
         </h2>
 
-        {/* Gradient mask reveal text */}
         <motion.h2
-          className="absolute inset-0 text-4xl md:text-6xl lg:text-7xl font-serif leading-tight text-center bg-gradient-to-r from-purple-700 via-purple-400 to-purple-700 bg-clip-text text-transparent"
+          className="absolute inset-0 text-3xl md:text-5xl lg:text-6xl font-serif leading-relaxed text-center bg-gradient-to-r from-primary via-primary/80 to-primary bg-clip-text text-transparent"
           style={{ clipPath }}
         >
-          Хватит делать сайты.
-          <br />
-          Пора рассказывать истории.
+          Дорогие наши друзья и родные! Мы с радостью приглашаем вас разделить с нами самый счастливый день.
         </motion.h2>
       </div>
     </section>

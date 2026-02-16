@@ -1,154 +1,93 @@
-import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
+import Icon from "@/components/ui/icon"
 
-function TypeTester() {
-  const [scale, setScale] = useState(1)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setScale((prev) => (prev === 1 ? 1.5 : 1))
-    }, 2000)
-    return () => clearInterval(interval)
-  }, [])
-
-  return (
-    <div className="flex items-center justify-center h-full">
-      <motion.span
-        className="font-serif text-6xl md:text-8xl text-foreground"
-        animate={{ scale }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      >
-        Aa
-      </motion.span>
-    </div>
-  )
-}
-
-function LayoutAnimation() {
-  const [layout, setLayout] = useState(0)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setLayout((prev) => (prev + 1) % 3)
-    }, 2500)
-    return () => clearInterval(interval)
-  }, [])
-
-  const layouts = ["grid-cols-2 grid-rows-2", "grid-cols-3 grid-rows-1", "grid-cols-1 grid-rows-3"]
-
-  return (
-    <div className="h-full p-4 flex items-center justify-center">
-      <motion.div className={`grid ${layouts[layout]} gap-2 w-full max-w-[140px]`} layout>
-        {[1, 2, 3].map((i) => (
-          <motion.div
-            key={i}
-            className="bg-primary/20 rounded-md min-h-[30px]"
-            layout
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          />
-        ))}
-      </motion.div>
-    </div>
-  )
-}
-
-function SpeedIndicator() {
-  const [progress, setProgress] = useState(0)
-
-  useEffect(() => {
-    const timeout = setTimeout(() => setProgress(100), 500)
-    return () => clearTimeout(timeout)
-  }, [])
-
-  return (
-    <div className="flex flex-col items-center justify-center h-full gap-4">
-      <span className="text-3xl md:text-4xl font-sans font-medium text-foreground">100ms</span>
-      <span className="text-sm text-muted-foreground">Загрузка</span>
-      <div className="w-full max-w-[120px] h-1.5 bg-foreground/10 rounded-full overflow-hidden">
-        <motion.div
-          className="h-full bg-primary rounded-full"
-          initial={{ width: 0 }}
-          animate={{ width: `${progress}%` }}
-          transition={{ duration: 0.1 }}
-        />
-      </div>
-    </div>
-  )
-}
+const schedule = [
+  {
+    time: "13:40",
+    title: "Церемония в ЗАГСе",
+    description: "ул. Ленина, 94",
+    icon: "Heart",
+  },
+  {
+    time: "15:00",
+    title: "Сбор гостей",
+    description: "База «Айвенго», ул. Отдыха, 5",
+    icon: "MapPin",
+  },
+  {
+    time: "17:00",
+    title: "Фотосессия",
+    description: "Сбор гостей у главного входа",
+    icon: "Camera",
+  },
+]
 
 export function FeaturesSection() {
   return (
     <section className="bg-background px-6 py-24">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <motion.p
-          className="text-muted-foreground text-sm uppercase tracking-widest mb-8"
+          className="text-muted-foreground text-sm uppercase tracking-[0.3em] mb-4 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          Возможности
+          Программа дня
         </motion.p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Typography Card */}
-          <motion.div
-            className="bg-secondary rounded-xl p-8 min-h-[280px] flex flex-col"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            whileHover={{ scale: 0.98 }}
-            whileTap={{ scale: 0.96 }}
-            transition={{ duration: 0.2 }}
-            data-clickable
-          >
-            <div className="flex-1">
-              <TypeTester />
-            </div>
-            <div className="mt-4">
-              <h3 className="font-serif text-xl text-foreground">Типографика</h3>
-              <p className="text-muted-foreground text-sm mt-1">Красивые шрифты, которые идеально масштабируются.</p>
-            </div>
-          </motion.div>
+        <motion.h2
+          className="text-3xl md:text-5xl font-serif text-foreground text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+        >
+          6 июня 2026
+        </motion.h2>
 
-          {/* Layouts Card */}
-          <motion.div
-            className="bg-secondary rounded-xl p-8 min-h-[280px] flex flex-col"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            whileHover={{ scale: 0.98 }}
-            whileTap={{ scale: 0.96 }}
-            data-clickable
-          >
-            <div className="flex-1">
-              <LayoutAnimation />
-            </div>
-            <div className="mt-4">
-              <h3 className="font-serif text-xl text-foreground">Макеты</h3>
-              <p className="text-muted-foreground text-sm mt-1">Гибкие сетки, которые адаптируются под контент.</p>
-            </div>
-          </motion.div>
+        <div className="relative">
+          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-border -translate-x-1/2 hidden md:block" />
 
-          {/* Speed Card */}
-          <motion.div
-            className="bg-secondary rounded-xl p-8 min-h-[280px] flex flex-col"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            whileHover={{ scale: 0.98 }}
-            whileTap={{ scale: 0.96 }}
-            data-clickable
-          >
-            <div className="flex-1">
-              <SpeedIndicator />
-            </div>
-            <div className="mt-4">
-              <h3 className="font-serif text-xl text-foreground">Скорость</h3>
-              <p className="text-muted-foreground text-sm mt-1">Молниеносная загрузка страниц для ваших гостей.</p>
-            </div>
-          </motion.div>
+          <div className="space-y-12 md:space-y-16">
+            {schedule.map((item, i) => (
+              <motion.div
+                key={i}
+                className="relative flex flex-col md:flex-row items-center gap-6 md:gap-12"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15, duration: 0.6 }}
+              >
+                <div className={`flex-1 text-center ${i % 2 === 0 ? "md:text-right" : "md:text-right md:order-first"}`}>
+                  {i % 2 === 0 ? (
+                    <>
+                      <span className="text-4xl md:text-5xl font-serif text-primary">{item.time}</span>
+                      <h3 className="text-xl font-serif text-foreground mt-2">{item.title}</h3>
+                      <p className="text-muted-foreground mt-1">{item.description}</p>
+                    </>
+                  ) : (
+                    <div className="md:invisible">
+                      <span className="text-4xl md:text-5xl font-serif text-primary">{item.time}</span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="relative z-10 w-14 h-14 rounded-full bg-primary/10 border-2 border-primary/20 flex items-center justify-center flex-shrink-0">
+                  <Icon name={item.icon} size={22} className="text-primary" />
+                </div>
+
+                <div className={`flex-1 text-center ${i % 2 === 0 ? "md:text-left md:invisible" : "md:text-left"}`}>
+                  {i % 2 !== 0 ? (
+                    <>
+                      <span className="text-4xl md:text-5xl font-serif text-primary">{item.time}</span>
+                      <h3 className="text-xl font-serif text-foreground mt-2">{item.title}</h3>
+                      <p className="text-muted-foreground mt-1">{item.description}</p>
+                    </>
+                  ) : null}
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

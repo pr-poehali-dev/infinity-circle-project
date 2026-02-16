@@ -1,85 +1,48 @@
 import { motion } from "framer-motion"
-import { Check } from "lucide-react"
-
-const plans = [
-  {
-    name: "Старт",
-    price: "1 200",
-    period: " руб/мес",
-    description: "Для личного портфолио",
-    features: ["5 страниц", "Свой домен", "Базовая аналитика", "Поддержка по email"],
-  },
-  {
-    name: "Про",
-    price: "2 900",
-    period: " руб/мес",
-    description: "Для растущих авторов",
-    features: ["Безлимит страниц", "Приоритет поддержки", "Расширенная аналитика", "Свой брендинг", "Работа в команде"],
-    popular: true,
-  },
-]
 
 export function PricingSection() {
   return (
-    <section className="bg-secondary px-6 py-24">
-      <div className="max-w-5xl mx-auto">
-        <motion.div
-          className="text-center mb-16"
+    <section className="bg-secondary/50 px-6 py-24">
+      <div className="max-w-3xl mx-auto text-center">
+        <motion.p
+          className="text-muted-foreground text-sm uppercase tracking-[0.3em] mb-4"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-5xl font-serif text-foreground">Простые и понятные цены</h2>
-          <p className="text-muted-foreground mt-4 max-w-md mx-auto">Начните бесплатно, платите когда готовы.</p>
+          Обращение
+        </motion.p>
+
+        <motion.div
+          className="bg-background rounded-2xl p-8 md:p-12 shadow-sm"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1, duration: 0.6 }}
+        >
+          <p className="text-lg md:text-xl font-serif text-foreground leading-relaxed mb-8">
+            Дорогие наши друзья и родные!
+          </p>
+          <p className="text-muted-foreground leading-relaxed mb-6">
+            Мы, Нина и Дмитрий, с радостью приглашаем вас разделить с нами самый счастливый день в нашей жизни — день нашей свадьбы!
+          </p>
+          <p className="text-muted-foreground leading-relaxed mb-8">
+            Мы будем бесконечно счастливы видеть вас среди наших гостей! Чтобы этот день остался в памяти как нежный и трогательный праздник, мы хотели бы поделиться с вами парой тёплых пожеланий.
+          </p>
+
+          <div className="flex items-center justify-center gap-4 mb-8">
+            <div className="h-px w-12 bg-primary/30" />
+            <span className="text-primary text-lg">♥</span>
+            <div className="h-px w-12 bg-primary/30" />
+          </div>
+
+          <p className="text-lg font-serif text-foreground">
+            С любовью и нетерпением ждём вас!
+          </p>
+          <p className="text-muted-foreground mt-2 font-serif italic">
+            С уважением, Нина и Дмитрий
+          </p>
         </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-          {plans.map((plan, i) => (
-            <motion.div
-              key={i}
-              className={`relative bg-background rounded-xl p-8 ticket-edge ${plan.popular ? "ring-2 ring-primary" : ""}`}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              data-clickable
-            >
-              {plan.popular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-lime text-foreground text-xs font-medium px-3 py-1 rounded-full">
-                  Популярный
-                </span>
-              )}
-
-              <div className="text-center pb-6 border-b border-dashed border-border">
-                <h3 className="font-serif text-xl text-foreground">{plan.name}</h3>
-                <div className="mt-4 flex items-baseline justify-center gap-1">
-                  <span className="text-4xl md:text-5xl font-serif text-foreground">{plan.price}</span>
-                  <span className="text-muted-foreground">{plan.period}</span>
-                </div>
-                <p className="text-muted-foreground text-sm mt-2">{plan.description}</p>
-              </div>
-
-              <ul className="mt-6 space-y-3">
-                {plan.features.map((feature, j) => (
-                  <li key={j} className="flex items-center gap-3 text-foreground">
-                    <Check className="w-4 h-4 text-primary flex-shrink-0" />
-                    <span className="text-sm">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <button
-                className={`w-full mt-8 py-3 px-6 rounded-lg font-medium transition-colors ${
-                  plan.popular
-                    ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                    : "bg-secondary text-foreground hover:bg-accent/30"
-                }`}
-              >
-                Начать
-              </button>
-            </motion.div>
-          ))}
-        </div>
       </div>
     </section>
   )

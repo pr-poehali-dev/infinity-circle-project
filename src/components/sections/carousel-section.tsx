@@ -1,53 +1,29 @@
 import { motion } from "framer-motion"
 
-const portfolioItems = [
-  "/portfolio-website-design-preview-modern.jpg",
-  "/photography-portfolio-website-clean.jpg",
-  "/architecture-firm-website-minimal.jpg",
-  "/design-agency-portfolio-dark-theme.jpg",
-  "/artist-portfolio-website-creative.jpg",
-  "/writer-portfolio-website-elegant.jpg",
-]
+const words = ["любовь", "♥", "счастье", "♥", "нежность", "♥", "радость", "♥", "семья", "♥", "вместе", "♥"]
 
 export function CarouselSection() {
-  // Duplicate for seamless loop
-  const items = [...portfolioItems, ...portfolioItems]
+  const items = [...words, ...words]
 
   return (
-    <section className="bg-primary py-24 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6 mb-12">
-        <motion.h2
-          className="text-3xl md:text-4xl font-serif text-primary-foreground"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          Создано авторами для авторов.
-        </motion.h2>
-      </div>
-
+    <section className="bg-primary py-16 overflow-hidden">
       <div className="relative">
         <motion.div
-          className="flex gap-6"
+          className="flex gap-8 items-center"
           animate={{ x: [0, "-50%"] }}
           transition={{
-            duration: 30,
+            duration: 20,
             repeat: Infinity,
             ease: "linear",
           }}
         >
-          {items.map((src, i) => (
-            <div
+          {items.map((word, i) => (
+            <span
               key={i}
-              className="flex-shrink-0 w-[300px] md:w-[400px] rounded-xl overflow-hidden shadow-2xl"
-              data-clickable
+              className="flex-shrink-0 text-3xl md:text-5xl font-serif text-primary-foreground/90 whitespace-nowrap"
             >
-              <img
-                src={src || "/placeholder.svg"}
-                alt={`Пример портфолио ${(i % portfolioItems.length) + 1}`}
-                className="w-full h-auto"
-              />
-            </div>
+              {word}
+            </span>
           ))}
         </motion.div>
       </div>
